@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2; /* Ensure the container is above the floating objects */
+    }
+
+    h1 {
+      color: #ff3b6f;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-yes {
+      background: #ff3b6f;
+      color: white;
+    }
+
+    .btn-no {
+      background: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    /* Floating Objects */
+    .hearts, .balloons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1; /* Ensure they are behind the container */
+    }
+
+    .heart, .balloon {
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .heart {
+      color: #ff3b6f;
+      font-size: 2rem;
+    }
+
+    .balloon {
+      width: 50px;
+      height: 70px;
+      background: #ff7eb3;
+      border-radius: 50%;
+      box-shadow: inset -7px -7px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #ff3b6f;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* New Page Styles */
+    .new-page {
+      display: none; /* Hidden by default */
+      text-align: center;
+      z-index: 2; /* Ensure the new page is above the floating objects */
+    }
+
+    .new-page h1 {
+      color: #ff3b6f;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .new-page p {
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    /* YouTube Embed Container */
+    .youtube-embed {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Initial Page -->
+  <div class="container" id="initial-page">
+    <h1>Will you be my Valentine bé Dale?</h1>
+    <div class="buttons">
+      <button class="btn btn-yes" id="yes-btn">Yes</button>
+      <button class="btn btn-no" id="no-btn">No</button>
+    </div>
+  </div>
+
+  <!-- New Page (Hidden Initially) -->
+  <div class="container new-page" id="new-page">
+    <h1>You made my day! ❤️</h1>
+    <p>Cám ơn em vì đã bên anh ❤️ </p>
+    <p>Đợi a nhé bé Dale ❤️ </p>
+    <div class="youtube-embed">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/IpFX2vq8HKw?si=v5NqelKOACobyX1R&autoplay=1&start=3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Floating Hearts and Balloons -->
+  <div class="hearts">
+    <div class="heart" style="top: 10%; left: 5%;">❤️</div>
+    <div class="heart" style="top: 20%; left: 80%;">❤️</div>
+    <div class="heart" style="top: 50%; left: 30%;">❤️</div>
+    <div class="heart" style="top: 70%; left: 60%;">❤️</div>
+  </div>
+
+  <div class="balloons">
+    <div class="balloon" style="top: 5%; left: 20%;"></div>
+    <div class="balloon" style="top: 15%; left: 70%;"></div>
+    <div class="balloon" style="top: 40%; left: 50%;"></div>
+    <div class="balloon" style="top: 60%; left: 10%;"></div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const initialPage = document.getElementById('initial-page');
+    const newPage = document.getElementById('new-page');
+
+    // Handle "Yes" button click
+    yesBtn.addEventListener('click', () => {
+      initialPage.style.display = 'none'; // Hide initial page
+      newPage.style.display = 'block'; // Show new page
+    });
+
+    // Handle "No" button hover/touch
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * 100; // Random horizontal position within the container
+      const y = Math.random() * 100; // Random vertical position within the container
+      noBtn.style.transform = `translate(${x}%, ${y}%)`;
+    });
+
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const x = Math.random() * 100; // Random horizontal position within the container
+      const y = Math.random() * 100; // Random vertical position within the container
+      noBtn.style.transform = `translate(${x}%, ${y}%)`;
+    });
+  </script>
+</body>
+</html>
